@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product List</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        /* Новые стили для Bootstrap */
+        .dropdown-menu {
+            background-color: #f8f9fa;
+        }
+    </style>
+
+</head>
+<body>
+    <div class="dropdown">
+    <button class="btn btn-secondary dropdown-toggle" type="button" id="changeTableMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        Change Table
+    </button>
+    <div class="dropdown-menu" aria-labelledby="changeTableMenuButton">
+        <!-- Содержимое вашего меню -->
+        <a class="dropdown-item" href="{% url 'add_column' %}">Add column</a>
+        <a class="dropdown-item" href="{% url 'pop' %}">Delete column</a>
+        <a class="dropdown-item" href="{% url 'change' %}">Change column</a>
+    </div>
+</div>
+<h1 class="h1 text-center">Product List</h1>
+
+{% if messages %}
+<ul class="messages">
+    {% for message in messages %}
+    <li>
+        {% if message.tags == "success" %}
+        <div class="alert alert-success" role="alert">{{ message }}</div>
+        {% elif message.tags == 'warning' %}
+        <div class="alert alert-danger" role="alert">{{ message }}</div>
+        {% endif %}
+
+    </li>
+    {% endfor %}
+</ul>
+{% endif %}
+
+<table>
+    <thead>
+    <tr>
+        <th>Name</th>
+        <th>Value</th>
+        <th>Price</th>
+        <th>Total</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for prod in prods %}
+
+    <tr>
+        <td>{{ prod.name }}</td>
+        <td>{{ prod.value }}</td>
+        <td>${{ prod.price }}</td>
+        <td>${{ prod.total }}</td>
+    </tr>
+    {% endfor %}
+
+    </tbody>
+</table>
+
+
+{% block form %}
+{% endblock %}
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+</body>
+</html>

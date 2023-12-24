@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block form %}
+<div class="container mt-4">
+    <form action="{% url 'pop_column' %}" method="POST">
+        {% csrf_token %}
+        <div class="form-row">
+            <div class="form-group col-md-4">
+                <label for="name">Name of product:</label>
+                <input type="text" class="form-control" id="name" name="name" required>
+            </div>
+        </div>
+        <button h\type="submit" class="btn btn-primary">Delete</button>
+    </form>
+</div>
+{% endblock %}
